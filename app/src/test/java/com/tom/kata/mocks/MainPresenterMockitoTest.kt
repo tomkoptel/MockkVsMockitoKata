@@ -28,7 +28,8 @@ class MainPresenterMockitoTest {
     }
 
     val view = mock<MainView>()
-    val modelUnderTest =         MainPresenter(articleDataModel, commentDataModel, view)
+    val logger = mock<Logger>()
+    val modelUnderTest =         MainPresenter(articleDataModel, commentDataModel, view, logger)
 
     @Test
     fun test_load_page() {

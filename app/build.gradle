@@ -23,7 +23,6 @@ android {
 
 allOpen {
     annotation("com.tom.kata.mocks.MakeItOpen")
-    // annotations("com.another.Annotation", "com.third.Annotation")
 }
 
 dependencies {
@@ -32,7 +31,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    testImplementation 'org.mockito:mockito-core:2.18.0'
+    testImplementation 'org.mockito:mockito-inline:2.18.0'
     testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
 
     testImplementation 'io.mockk:mockk:1.7.15'

@@ -4,12 +4,12 @@ import java.util.*
 
 class ArticleDataModel {
     fun load(date: Date): List<Article> {
-        TODO("STUB")
+        return listOf()
     }
 }
 
 class CommentDataModel {
     fun load(articleId: String): List<Comment> {
-        TODO("STUB")
+        return listOf()
     }
 }

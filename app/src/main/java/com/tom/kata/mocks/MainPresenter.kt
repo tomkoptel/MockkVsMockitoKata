@@ -5,7 +5,8 @@ import java.util.*
 class MainPresenter(
     private val articlesModel: ArticleDataModel,
     private val commentsModel: CommentDataModel,
-    private val view: MainView
+    private val view: MainView,
+    private val logger: Logger
 ) {
     fun loadPage() {
         articlesModel.load(Date()).map {
@@ -13,6 +14,9 @@ class MainPresenter(
                 article = it,
                 comments = commentsModel.load(it.id)
             )
-        }.let { view.render(it) }
+        }.let {
+            logger.log(it.joinToString())
+            view.render(it)
+        }
     }
 }
