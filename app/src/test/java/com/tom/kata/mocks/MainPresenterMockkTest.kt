@@ -2,7 +2,10 @@ package com.tom.kata.mocks
 
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.objectMockk
 import io.mockk.verify
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class MainPresenterMockkTest {
@@ -26,9 +29,21 @@ class MainPresenterMockkTest {
         every { load(article2Id) } returns listOf(comment2)
     }
 
+    val viewArticle = mockk<ViewArticle>()
     val view = mockk<MainView>(relaxed = true)
-    val logger = mockk<Logger>()
+    val logger = mockk<Logger>(relaxed = true)
     val modelUnderTest = MainPresenter(articleDataModel, commentDataModel, view, logger)
+
+    @Before
+    fun setUp() {
+        objectMockk(UiEntityMapper).mock()
+        every { UiEntityMapper.fromTo(any()) } returns viewArticle
+    }
+
+    @After
+    fun tearDown() {
+        objectMockk(UiEntityMapper).unmock()
+    }
 
     @Test
     fun test_load_page() {
@@ -37,5 +52,6 @@ class MainPresenterMockkTest {
         verify { articleDataModel.load(any()) }
         verify { commentDataModel.load(article1Id) }
         verify { commentDataModel.load(article2Id) }
+        verify { view.render(match { it.contains(viewArticle) }) }
     }
 }

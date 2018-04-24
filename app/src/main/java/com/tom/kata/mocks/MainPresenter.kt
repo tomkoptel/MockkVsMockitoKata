@@ -10,10 +10,7 @@ class MainPresenter(
 ) {
     fun loadPage() {
         articlesModel.load(Date()).map {
-            ViewArticle(
-                article = it,
-                comments = commentsModel.load(it.id)
-            )
+            UiEntityMapper.fromTo(it to commentsModel.load(it.id))
         }.let {
             logger.log(it.joinToString())
             view.render(it)
